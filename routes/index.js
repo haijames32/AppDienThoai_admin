@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var Ctrl = require('../controllers/signinCtrl')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/',Ctrl.Signin)
+router.post('/',Ctrl.Signin)
+
+router.get('/logout',Ctrl.Logout)
 
 module.exports = router;

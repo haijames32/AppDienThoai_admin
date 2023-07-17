@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/info.png" type="image/x-icon">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+    <title>Information Product</title>
+    <style>
+        .img {
+            width: 270px;
+            height: 270px;
+            border-radius: 15px;
+            margin-left: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <%- include('../inc/menu') %>
+
+            <div class="row mt-3 ms-2">
+                <h2>Information Product</h2>
+            </div>
+            <hr>
+
+            <div class="container">
+
+                <div class="row col-12 mt-4" style="justify-content: center;">
+
+                    <div class="row d-flex p-1 col-10 justify-content-center" style="border-radius: 10px;">
+
+                        <div class="col-5 p-1">
+                            <img class="img border mt-4" src="<%= objSP.image %>" alt="">
+                        </div>
+
+                        <div class="col-5">
+                            <div class="d-flex mt-4">
+                                <p class="fw-semibold">Tên sản phẩm:</p>
+                                <p class="ms-1">
+                                    <%= objSP.tensp %>
+                                </p>
+                            </div>
+
+                            <div class="d-flex">
+                                <p class="fw-semibold">Thể loại:</p> <span class="ms-1">
+                                    <%= objSP.id_theloai.name %>
+                                </span>
+                            </div>
+
+                            <div class="d-flex">
+                                <p class="fw-semibold">Giá:</p> <span class="ms-1">
+                                    ₫<%= objSP.giasp.toLocaleString() %>
+                                </span>
+                            </div>
+
+                            <div class="d-flex">
+                                <p class="fw-semibold">Tồn kho:</p> <span class="ms-1">
+                                    <%= objSP.tonkho %>
+                                </span>
+                            </div>
+
+                            <div class="d-flex">
+                                <p class="fw-semibold">Mô tả:</p> <span class="ms-1">
+                                    <%= objSP.mota %>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+    </div>
+
+
+
+
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-semibold" id="exampleModalLabel">Thêm sản phẩm</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+          <label for="name" class="form-label">Tên sản phẩm</label>
+          <div class="row col-12">
+            <div class="col-8">
+              <input type="text" class="form-control" name="tensp">
+            </div>
+            <select class="col-4" name="theloai">
+              <% ListTL.forEach( row=> { %>
+                <option value="<%= row._id %>">
+                  <%= row.name %>
+                </option>
+                <% }) %>
+            </select>
+          </div>
+          <div class="mt-2 mb-2" style="width: 287px;">
+            <label for="Image" class="form-label">Ảnh</label>
+            <input type="file" class="form-control" name="file_img" aria-describedby="fileHelpId">
+          </div>
+
+          <div class="mb-3" style="width: 287px;">
+            <label for="price" class="form-label">Giá</label>
+            <input type="number" class="form-control" name="giasp">
+          </div>
+
+          <div class="mb-3" style="width: 287px;">
+            <label for="tonkho" class="form-label">Tồn kho</label>
+            <input type="number" class="form-control" name="tonkho">
+          </div>
+
+          <div class="mb-2">
+            <label class="col-3 mb-1" for="content" class="form-label">Mô tả</label>
+            <textarea class="col-12 p-2" name="mota" cols="50" rows="6"></textarea>
+          </div>
+          <hr>
+          <div class="col-12 text-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            <button type="submit" class="btn btn-primary">Thêm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/product.png" type="image/x-icon">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+    <title>Sản phẩm</title>
+    <style>
+        .img {
+            width: 40px;
+            height: 40px;
+            border-radius: 7px;
+        }
+        .btnSort {
+            left: 50px;
+            bottom: 0px;
+        }
+        .tt{
+            text-decoration: none;
+            color: black; 
+        }
+        .tt:hover{
+            color: rgb(102, 101, 101);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <%- include('../inc/menu') %>
+
+            <div class="row align-items-center">
+                <div class="col-9 mt-4 ms-4">
+                    <h2><a class="tt" href="/products">List Product</a></h2>
+                </div>
+
+                <% if(objU.role==1){ %>
+                    <!-- Thêm -->
+                    <button type="button" class="btn btn-primary col-2 mt-4 ms-5"
+                        style="background-color: #145DA0; color: white;" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Thêm sản phẩm
+                    </button>
+                    <%- include('../products/inc/modalAdd') %>
+                        <% }else{ %>
+                            <button type="button" class="btn btn-primary col-2 mt-4 ms-5"
+                                style="background-color: #145DA0; color: white;" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" hidden>
+                                Thêm sản phẩm
+                            </button>
+                            <% } %>
+
+
+            </div>
+            <hr>
+
+            <div class="container d-flex justify-content-end">
+                <!-- Lọc theo thể loại -->
+                <form action="" method="post" class="d-flex col-3 me-3 justify-content-end">
+                    <select class="col-7 me-2" id="idCat" name="loc_theloai"
+                        style="border-radius: 5px; padding-left: 10px;">
+                        <% ListTL.forEach( (row, index)=> { %>
+                            <% if(index==iCat) { %>
+                                <option value="<%= row.id %>" selected="selected">
+                                    <%= row.name %>
+                                </option>
+                                <% } else {%>
+                                    <option value="<%= row.id %>">
+                                        <%= row.name %>
+                                    </option>
+                                    <% } %>
+                                        <% }) %>
+                    </select>
+                    <button class="btn btn-outline-success" style="background-color: #145DA0; color: white;" type="submit">Lọc</button>
+                </form>
+
+                <!-- Tìm kiếm tên sản phẩm -->
+                <form method="post" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Nhập tên sản phẩm.." aria-label="Search" name="searchName">
+                    <button class="btn btn-outline-success" style="background-color: #145DA0; color: white;" type="submit">Tìm</button>
+                </form>
+
+            </div>
+
+            <div class="container">
+
+                <div class="row">
+                    <table class=" table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên sản phẩm
+                                    <form action="" method="post" class="position-absolute btnSort">
+                                        <input type="text" name="sortName" value="<%= iSort %>" hidden>
+                                        <button type="submit" class="btn">
+                                            <i class="fa-sharp fa-solid fa-sort"></i>
+                                        </button>
+                                    </form>
+                                </th>
+                                <th scope="col" style="text-align: center">Thể loại</th>
+                                <th scope="col" style="text-align: center">Tồn kho</th>
+                                <th scope="col" style="text-align: center">Ảnh</th>
+                                <th scope="col" class="text-start">Giá
+                                    <form action="" method="post" class="position-absolute btnSort">
+                                        <input type="text" name="sortPrice" value="<%= iSort %>" hidden>
+                                        <button type="submit" class="btn">
+                                            <i class="fa-sharp fa-solid fa-sort"></i>
+                                        </button>
+                                    </form>
+                                </th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% listPro.forEach( (objSP,index)=> { %>
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <a class="detailTen" style="text-decoration: none; color: black;">
+                                            <%= objSP.tensp %>
+                                        </a>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle">
+                                        <%= objSP.id_theloai.name %>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle">
+                                        <%= objSP.tonkho %>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img class="img" src="<%= objSP.image %>" alt="">
+                                    </td>
+                                    <td style="vertical-align: middle">
+                                        ₫<%= objSP.giasp.toLocaleString() %>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle">
+                                        <a href="products/edit/<%= objSP._id %>"><i class="fa-sharp fa-solid fa-pen"
+                                                style="color: black;"></i></a>
+                                        <!-- <a href="products/del/<%= objSP._id %>"
+                                            onclick="return confirm('Chắc chắn xóa?')"><i
+                                                class="fa-sharp fa-solid fa-trash" style="color: black;"></i></a> -->
+                                        <a href="products/detail/<%= objSP._id %>"><i
+                                                class="fa-sharp fa-solid fa-circle-info" style="color: black;"></i></a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <hr>
+    </div>
+
+
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
