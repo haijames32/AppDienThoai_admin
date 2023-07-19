@@ -15,15 +15,23 @@
             height: 40px;
             border-radius: 7px;
         }
+
         .btnSort {
-            left: 50px;
-            bottom: 0px;
+            left: 370px;
+            top: 208px;
         }
-        .tt{
+
+        .btnSort2 {
+            right: 450px;
+            top: 207px;
+        }
+
+        .tt {
             text-decoration: none;
-            color: black; 
+            color: black;
         }
-        .tt:hover{
+
+        .tt:hover {
             color: rgb(102, 101, 101);
         }
     </style>
@@ -75,13 +83,16 @@
                                     <% } %>
                                         <% }) %>
                     </select>
-                    <button class="btn btn-outline-success" style="background-color: #145DA0; color: white;" type="submit">Lọc</button>
+                    <button class="btn btn-outline-success" style="background-color: #145DA0; color: white;"
+                        type="submit">Lọc</button>
                 </form>
 
                 <!-- Tìm kiếm tên sản phẩm -->
                 <form method="post" class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Nhập tên sản phẩm.." aria-label="Search" name="searchName">
-                    <button class="btn btn-outline-success" style="background-color: #145DA0; color: white;" type="submit">Tìm</button>
+                    <input class="form-control me-2" type="search" placeholder="Nhập tên sản phẩm.." aria-label="Search"
+                        name="searchName">
+                    <button class="btn btn-outline-success" style="background-color: #145DA0; color: white;"
+                        type="submit">Tìm</button>
                 </form>
 
             </div>
@@ -101,11 +112,11 @@
                                         </button>
                                     </form>
                                 </th>
-                                <th scope="col" style="text-align: center">Thể loại</th>
-                                <th scope="col" style="text-align: center">Tồn kho</th>
-                                <th scope="col" style="text-align: center">Ảnh</th>
+                                <th>Thể loại</th>
+                                <th>Tồn kho</th>
+                                <th>Ảnh</th>
                                 <th scope="col" class="text-start">Giá
-                                    <form action="" method="post" class="position-absolute btnSort">
+                                    <form action="" method="post" class="position-absolute btnSort2">
                                         <input type="text" name="sortPrice" value="<%= iSort %>" hidden>
                                         <button type="submit" class="btn">
                                             <i class="fa-sharp fa-solid fa-sort"></i>
@@ -121,21 +132,19 @@
                                     <td>
 
                                     </td>
-                                    <td style="vertical-align: middle;">
-                                        <a class="detailTen" style="text-decoration: none; color: black;">
-                                            <%= objSP.tensp %>
-                                        </a>
+                                    <td>
+                                        <%= objSP.tensp %>
                                     </td>
-                                    <td style="text-align: center; vertical-align: middle">
+                                    <td>
                                         <%= objSP.id_theloai.name %>
                                     </td>
-                                    <td style="text-align: center; vertical-align: middle">
+                                    <td>
                                         <%= objSP.tonkho %>
                                     </td>
-                                    <td style="text-align: center;">
+                                    <td>
                                         <img class="img" src="<%= objSP.image %>" alt="">
                                     </td>
-                                    <td style="vertical-align: middle">
+                                    <td>
                                         ₫<%= objSP.giasp.toLocaleString() %>
                                     </td>
                                     <td style="text-align: center; vertical-align: middle">
@@ -152,14 +161,6 @@
                     </table>
                 </div>
             </div>
-
-
-
-
-
-
-
-
 
 
             <hr>

@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Ctrl = require('../controllers/signinCtrl')
+var mdWare = require('../middleWare/checkLogin')
 
-router.get('/',Ctrl.Signin)
-router.post('/',Ctrl.Signin)
+router.get('/',mdWare.not_login,Ctrl.Signin)
+router.post('/',mdWare.not_login,Ctrl.Signin)
 
 router.get('/logout',Ctrl.Logout)
 

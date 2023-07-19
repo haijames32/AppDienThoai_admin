@@ -1,15 +1,25 @@
 var db = require('./db');
 
-// Bảng sanpham
+// Bảng manager
 const managerSchema = new db.mongoose.Schema(
     {
         //đối tượng này định nghĩa cấu trúc của model
         fullname: { type: String, required: true },
         username: { type: String, required: true },
         passwd: { type: String, required: true },
-        role: { type: Number, required: true }
+        role: { type: Number, required: true },
+        phone: { type: Number, required: true },
+        id_gender: { type: db.mongoose.Schema.Types.ObjectId, ref: 'genderModel' }
     },
     { collection: 'managers' }
+);
+// Bảng gioitinh
+const genderSchema = new db.mongoose.Schema(
+    {
+        //đối tượng này định nghĩa cấu trúc của model
+        name: { type: String, required: true }
+    },
+    { collection: 'gioitinh' }
 );
 
 // Bảng sanpham
@@ -54,7 +64,7 @@ const donHangSchema = new db.mongoose.Schema(
         id_khachhang: { type: db.mongoose.Schema.Types.ObjectId, ref: 'userModel' },
         tongtien: { type: Number, required: true },
         trangthai: { type: String, required: true },
-        ngaymua: { type: Date, required: true }
+        ngaymua: { type: String, required: true }
     },
     { collection: 'donhang' }
 );
@@ -80,5 +90,6 @@ let userModel = db.mongoose.model('userModel', userSchema);
 let donHangModel = db.mongoose.model('donHangModel', donHangSchema);
 let chitietdonHangModel = db.mongoose.model('chitietdonHangModel', chitietdonHangSchema);
 let managerModel = db.mongoose.model('managerModel', managerSchema);
+let genderModel = db.mongoose.model('genderModel', genderSchema);
 
-module.exports = { spModel, theLoaiModel, donHangModel, userModel, chitietdonHangModel, managerModel };
+module.exports = { spModel, theLoaiModel, donHangModel, userModel, chitietdonHangModel, managerModel, genderModel };

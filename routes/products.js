@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 var spCtrl = require('../controllers/ProductCtrl')
-// var mdWare = require('../middleWare/checkLogin')
+var mdWare = require('../middleWare/checkLogin')
 
 var multer = require('multer');
 var objImg = multer({ dest: './tmp' })
 var objImgEdit = multer({ dest: './tmp' })
 
-// router.use(mdWare.do_login);// áp dụng cho tất cả router trong file này
+router.use(mdWare.do_login);// áp dụng cho tất cả router trong file này
 
 // List
 router.get('/', spCtrl.listProduct)
