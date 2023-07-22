@@ -50,7 +50,6 @@ exports.listProduct = async (req, res, next) => {
         dk = { tensp: { $regex: '.*' + loc_name + '.*' } }
     }
 
-
     if (req.method == 'POST') {
         //kiểm tra hợp lệ dữ liệu(validate) ở đây
         //tạo đối tượng model và gán dữ liệu
@@ -86,12 +85,43 @@ exports.listProduct = async (req, res, next) => {
                 console.log("Lỗi" + error);
             }
         }
-
     }
 
     let listPro = await myModel.spModel.find(dk).populate('id_theloai').sort(sort);
 
     res.render('products/list', { listPro: listPro, ListTL: ListTL, objU: objU, iSort: iSort, iCat: iCat })
+}
+
+exports.addOrder = async (req, res, next) => {
+    objU = req.session.userLogin;
+    try {
+        var listSp = await myModel.spModel.find();
+        var listU = await myModel.userModel.find();
+    } catch (error) {
+        console.log(error.message);
+    }
+
+    if (req.method == 'POST') {
+
+        let newOrder = new myModel.donHangModel();
+        newOrder.id_khachhang = req.body.id_khachhang;
+        newOrder.id_sanpham = req.body.id_sanpham;
+        newOrder.soluong = req.body.soluong;
+        newOrder.trangthai = "Chờ thanh toán";
+        newOrder.ngaymua = new Date();
+        newOrder.tongtien = 0;
+
+
+        try {
+            let new_or = await newOrder.save();
+            console.log(new_or);
+            return res.redirect('/products')
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    res.render('products/addorder', { listSp: listSp, listU: listU, objU: objU })
 }
 
 exports.editProduct = async (req, res, next) => {
@@ -123,7 +153,7 @@ exports.editProduct = async (req, res, next) => {
                     console.log(err);
                 } else {
                     // nếu không có lỗi
-                    objSP.Image = 'http://localhost:3000/images/' + req.file.originalname;
+                    objSP.image = 'http://localhost:3000/images/' + req.file.originalname;
                     try {
                         //thực hiện ghi vào CSDL
                         await myModel.spModel.findByIdAndUpdate({ _id: idPro }, objSP);

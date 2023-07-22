@@ -16,6 +16,10 @@ router.get('/', spCtrl.listProduct)
 // Add
 router.post('/', objImg.single("file_img"), spCtrl.listProduct);
 
+// Add Order
+router.get('/addorder', spCtrl.addOrder);
+router.post('/addorder', spCtrl.addOrder);
+
 // Edit
 router.get('/edit/:idPro', spCtrl.editProduct);
 router.post('/edit/:idPro', objImgEdit.single('file_img_edit'), spCtrl.editProduct);

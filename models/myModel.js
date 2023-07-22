@@ -62,6 +62,8 @@ const donHangSchema = new db.mongoose.Schema(
     {
         //đối tượng này định nghĩa cấu trúc của model
         id_khachhang: { type: db.mongoose.Schema.Types.ObjectId, ref: 'userModel' },
+        id_sanpham: { type: db.mongoose.Schema.Types.ObjectId, ref: 'spModel' },
+        soluong: { type: Number, required: true },
         tongtien: { type: Number, required: true },
         trangthai: { type: String, required: true },
         ngaymua: { type: String, required: true }
@@ -74,8 +76,7 @@ const chitietdonHangSchema = new db.mongoose.Schema(
     {
         //đối tượng này định nghĩa cấu trúc của model
         id_donhang: { type: db.mongoose.Schema.Types.ObjectId, ref: 'donHangModel' },
-        id_sanpham: { type: db.mongoose.Schema.Types.ObjectId, ref: 'spModel' },
-        soluong: { type: Number, required: true },
+        
         giatien: { type: Number, required: true }
     },
     { collection: 'chitietdonhang' }

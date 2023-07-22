@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/edit.png" type="image/x-icon">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+    <title>Order</title>
+    <style>
+        .img {
+            width: 230px;
+            height: 230px;
+            border-radius: 15px;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid ">
+        <%- include('../inc/menu') %>
+
+        <div class="row mt-3 ms-2">
+            <h2>Add Order</h2>
+        </div>
+        <hr>
+
+        <div class="container">
+            <!-- edit form column -->
+            <div class="row col-12 mt-4" style="justify-content: center;">
+                
+                <form method="post" class="row d-flex p-1 col-8 border" style="border-radius: 10px;justify-content: center;">
+                    
+                    
+
+                    <div class="col-6">
+                        <div class="col-12 mb-2">
+                            <label for="Name" class="form-label">Sản phẩm</label>
+                        <select class="col-12 " name="id_sanpham">
+                            <% listSp.forEach( row=> { %>
+                              <option value="<%= row._id %>">
+                                <%= row.tensp %>
+                              </option>
+                              <% }) %>
+                          </select>
+                        </div>
+                        
+
+                          <label for="Name" class="form-label">Khách hàng</label>
+                        <select class="col-12 mb-2" name="id_khachhang">
+                            <% listU.forEach( row=> { %>
+                              <option value="<%= row._id %>">
+                                <%= row.fullname %>
+                              </option>
+                              <% }) %>
+                          </select>
+
+                        <div class="mb-2">
+                            <label for="Price" class="form-label">Số lượng</label>
+                            <input type="number" class="form-control" name="soluong">
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-12 mt-4 mb-2 text-center">
+                        <button type="submit" style="border-radius: 10px;" class="btn btn-primary col-2" style="background-color: #145DA0; color: white;">Thêm</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+            
+    </div>
+
+
+
+
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

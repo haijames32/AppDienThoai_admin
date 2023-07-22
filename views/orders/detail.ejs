@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+    <title>Order</title>
+    <style>
+        .img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <%- include('../inc/menu') %>
+
+            <div class="row mt-3 ms-2">
+                <h2>Information Order</h2>
+            </div>
+            <hr>
+
+            <div class="container">
+                <!-- edit form column -->
+                <div class="row col-12 mt-4" style="justify-content: center;">
+
+                    <form method="post" class="row d-flex p-1 col-8" style="border-radius: 10px;">
+
+                        <div class="col-5">
+                            <h4>Thông tin người dùng</h4>
+                            <div class="col-12" style="height: 30px;">
+                                <p>
+                                    <%= obj.id_khachhang.fullname %>
+                                </p>
+                            </div>
+
+                            <div class="col-12" style="height: 30px;">
+                                <p>
+                                    0<%= obj.id_khachhang.phone %>
+                                </p>
+                            </div>
+
+                            <div class="col-12" style="height: 30px;">
+                                <p>
+                                    <%= obj.id_khachhang.email %>
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="col-7">
+                            <div class="row col-12 mb-2">
+                                <div class="col-7">
+                                    <h4>Thông tin sản phẩm</h4>
+                                </div>
+                                <select class="col-4" name="trangthai" style="font-size: 15px;">
+                                    <% if(obj.trangthai=='Chờ xác nhận' ){ %>
+                                        <option value="Chờ xác nhận" selected>Chờ xác nhận</option>
+                                        <option value="Chờ thanh toán">Chờ thanh toán</option>
+                                        <option value="Đã thanh toán">Đã thanh toán</option>
+                                        <option value="Hoàn thành">Hoàn thành</option>
+                                        <% }else if(obj.trangthai=='Chờ thanh toán' ){ %>
+                                            <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                            <option value="Chờ thanh toán" selected>Chờ thanh toán</option>
+                                            <option value="Đã thanh toán">Đã thanh toán</option>
+                                            <option value="Hoàn thành">Hoàn thành</option>
+                                            <% }else if(obj.trangthai=='Đã thanh toán' ){ %>
+                                                <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                                <option value="Chờ thánh toán">Chờ thanh toán</option>
+                                                <option value="Đã thanh toán" selected>Đã thanh toán</option>
+                                                <option value="Hoàn thành">Hoàn thành</option>
+                                                <%}else{ %>
+                                                    <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                                    <option value="Chờ thanh toán">Chờ thanh toán</option>
+                                                    <option value="Đã thanh toán">Đã thanh toán</option>
+                                                    <option value="Hoàn thành" selected>Hoàn thành</option>
+                                                    <% } %>
+                                </select>
+                            </div>
+
+                            <div class="row d-flex col-12">
+
+                                <div class="col-3">
+                                    <img class="img" src="<%= obj.id_sanpham.image %>" alt="">
+                                </div>
+
+                                <div class="col-9">
+
+                                    <div class="col-12 mt-2">
+                                        <h6 class="ms-1">
+                                            <%= obj.id_sanpham.tensp %>
+                                        </h6>
+                                    </div>
+                                    <div class="col-12" style="height: 25px;">
+                                        <p class="ms-1">
+                                            x<%= obj.soluong %>
+                                        </p>
+                                    </div>
+                                    <div class="col-12" style="height: 25px;">
+                                        <p class="ms-1"><%= obj.id_sanpham.giasp.toLocaleString() %>₫
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 text-center mt-2">
+                                <h4>Tổng tiền: <%= obj.tongtien.toLocaleString() %>₫
+                                </h4>
+                            </div>
+
+                        </div>
+
+                        <div class="col-12 mt-4 mb-2 text-center">
+                            <button type="submit" style="border-radius: 25px;"
+                                class="btn btn-primary col-2">Save</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+    </div>
+
+
+
+
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

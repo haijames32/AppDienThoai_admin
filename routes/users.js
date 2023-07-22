@@ -12,9 +12,9 @@ router.get('/',userCtrl.listUser);
 router.post('/',userCtrl.listUser);
 
 // Edit
-router.put('/edit/:idUser', userCtrl.editUser);
+router.put('/edit/:idU', userCtrl.editUser);
 
 // Detail
-router.get('/detail/:idUser', userCtrl.detailUser);
+router.get('/detail/:idU', userCtrl.detailUser);
 
 module.exports = router;

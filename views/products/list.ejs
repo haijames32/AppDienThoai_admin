@@ -55,11 +55,10 @@
                     </button>
                     <%- include('../products/inc/modalAdd') %>
                         <% }else{ %>
-                            <button type="button" class="btn btn-primary col-2 mt-4 ms-5"
-                                style="background-color: #145DA0; color: white;" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" hidden>
-                                Thêm sản phẩm
-                            </button>
+                            <a href="products/addorder" class="btn col-2 mt-4 ms-5"
+                                style="background-color: #145DA0; color: white; text-decoration: none;">
+                                Thêm đơn hàng
+                            </a>
                             <% } %>
 
 
@@ -145,7 +144,7 @@
                                         <img class="img" src="<%= objSP.image %>" alt="">
                                     </td>
                                     <td>
-                                        ₫<%= objSP.giasp.toLocaleString() %>
+                                        <%= objSP.giasp.toLocaleString() %>₫
                                     </td>
                                     <td style="text-align: center; vertical-align: middle">
                                         <a href="products/edit/<%= objSP._id %>"><i class="fa-sharp fa-solid fa-pen"
