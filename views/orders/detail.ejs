@@ -34,54 +34,64 @@
 
                         <div class="col-5">
                             <h4>Thông tin người dùng</h4>
-                            <div class="col-12" style="height: 30px;">
+                            <div class="col-12 d-flex" style="height: 30px;">
+                                <p class="fw-semibold me-2">Họ tên:</p>
                                 <p>
                                     <%= obj.id_khachhang.fullname %>
                                 </p>
                             </div>
 
-                            <div class="col-12" style="height: 30px;">
+                            <div class="col-12 d-flex" style="height: 30px;">
+                                <p class="fw-semibold me-2">Điện thoại:</p>
                                 <p>
                                     0<%= obj.id_khachhang.phone %>
                                 </p>
                             </div>
 
-                            <div class="col-12" style="height: 30px;">
+                            <div class="col-12 d-flex" style="height: 30px;">
+                                <p class="fw-semibold me-2">Email:</p>
                                 <p>
                                     <%= obj.id_khachhang.email %>
+                                </p>
+                            </div>
+                            <div class="col-12 d-flex" style="height: 30px;">
+                                <p class="col-3 fw-semibold me-2">Ngày mua:</p>
+                                <p>
+                                    <%= obj.ngaymua %>
                                 </p>
                             </div>
 
                         </div>
 
-                        <div class="col-7">
+                        <div class="row col-7">
                             <div class="row col-12 mb-2">
                                 <div class="col-7">
                                     <h4>Thông tin sản phẩm</h4>
                                 </div>
-                                <select class="col-4" name="trangthai" style="font-size: 15px;">
-                                    <% if(obj.trangthai=='Chờ xác nhận' ){ %>
-                                        <option value="Chờ xác nhận" selected>Chờ xác nhận</option>
-                                        <option value="Chờ thanh toán">Chờ thanh toán</option>
-                                        <option value="Đã thanh toán">Đã thanh toán</option>
-                                        <option value="Hoàn thành">Hoàn thành</option>
-                                        <% }else if(obj.trangthai=='Chờ thanh toán' ){ %>
-                                            <option value="Chờ xác nhận">Chờ xác nhận</option>
-                                            <option value="Chờ thanh toán" selected>Chờ thanh toán</option>
-                                            <option value="Đã thanh toán">Đã thanh toán</option>
-                                            <option value="Hoàn thành">Hoàn thành</option>
-                                            <% }else if(obj.trangthai=='Đã thanh toán' ){ %>
-                                                <option value="Chờ xác nhận">Chờ xác nhận</option>
-                                                <option value="Chờ thánh toán">Chờ thanh toán</option>
-                                                <option value="Đã thanh toán" selected>Đã thanh toán</option>
-                                                <option value="Hoàn thành">Hoàn thành</option>
-                                                <%}else{ %>
-                                                    <option value="Chờ xác nhận">Chờ xác nhận</option>
-                                                    <option value="Chờ thanh toán">Chờ thanh toán</option>
-                                                    <option value="Đã thanh toán">Đã thanh toán</option>
-                                                    <option value="Hoàn thành" selected>Hoàn thành</option>
-                                                    <% } %>
-                                </select>
+                                <div class="col-5 text-end">
+                                    <% if(obj.trangthai=="Chờ xác nhận" ){ %>
+                                        <input hidden name="trangthai" value="Chờ thanh toán">
+                                        <button type="submit" class=" btn"
+                                            style="background-color: #145DA0; color: white; cursor: pointer;">
+                                            Xác nhận
+                                        </button>
+                                        <!-- <h5 style="color: red;">
+                                            <%= obj.trangthai %>
+                                        </h5> -->
+                                        <% }else if(obj.trangthai=="Chờ thanh toán" ){ %>
+                                            <input hidden name="trangthai" value="Hoàn thành">
+                                            <button type="submit" class=" btn"
+                                                style="background-color: #145DA0; color: white; cursor: pointer;">
+                                                Đã thanh toán
+                                            </button>
+                                            <% }else{ %>
+                                                <h5 style="color: greenyellow;">
+                                                    <%= obj.trangthai %>
+                                                </h5>
+                                                <% } %>
+                                </div>
+
+
                             </div>
 
                             <div class="row d-flex col-12">
@@ -103,7 +113,8 @@
                                         </p>
                                     </div>
                                     <div class="col-12" style="height: 25px;">
-                                        <p class="ms-1"><%= obj.id_sanpham.giasp.toLocaleString() %>₫
+                                        <p class="ms-1">
+                                            <%= obj.id_sanpham.giasp.toLocaleString() %>₫
                                         </p>
 
                                     </div>
@@ -112,17 +123,19 @@
 
                             </div>
 
-                            <div class="col-12 text-center mt-2">
-                                <h4>Tổng tiền: <%= obj.tongtien.toLocaleString() %>₫
-                                </h4>
+                            <div class="col-12 justify-content-center mt-2 d-flex">
+                                <p class="fw-semibold me-1" style="font-size: 20px;">Tổng tiền:</p>
+                                <p style="color: red; font-size: 20px; font-weight: bold;">
+                                    <%= obj.tongtien.toLocaleString() %>₫
+                                </p>
                             </div>
 
                         </div>
 
-                        <div class="col-12 mt-4 mb-2 text-center">
+                        <!-- <div class="col-12 mt-4 mb-2 text-center">
                             <button type="submit" style="border-radius: 25px;"
                                 class="btn btn-primary col-2">Save</button>
-                        </div>
+                        </div> -->
 
                     </form>
 

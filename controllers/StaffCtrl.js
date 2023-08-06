@@ -1,5 +1,6 @@
 const myModel = require('../models/myModel');
 exports.listStaff = async (req, res, next) => {
+    let msg = '';
     let objU = req.session.userLogin
 
     let dk = null;
@@ -11,26 +12,33 @@ exports.listStaff = async (req, res, next) => {
 
     if (req.method == 'POST') {
         //kiểm tra hợp lệ dữ liệu(validate) ở đây
-        //tạo đối tượng model và gán dữ liệu
-        let objU = new myModel.managerModel();
-        objU.fullname = req.body.fullname;
-        objU.username = req.body.username;
-        objU.passwd = req.body.passwd;
-        objU.id_gender = req.body.gender;
-        objU.phone = req.body.phone;
-        objU.role = 2
+        let obj = await myModel.managerModel.findOne({ username: req.body.username })
+        if (obj != null) {
+            msg = "Tài khoản đã tồn tại"
+            console.log(msg);
+        } else {
+            //tạo đối tượng model và gán dữ liệu
+            let objU = new myModel.managerModel();
+            objU.fullname = req.body.fullname;
+            objU.username = req.body.username;
+            objU.passwd = req.body.passwd;
+            objU.id_gender = req.body.gender;
+            objU.phone = req.body.phone;
+            objU.role = 2
 
-        try {
-            let new_u = await objU.save();
-            console.log(new_u);
-            return res.redirect('/staffs');
-        } catch (error) {
-            console.log("Lỗi" + error);
+            try {
+                let new_u = await objU.save();
+                console.log(new_u);
+                return res.redirect('/staffs');
+            } catch (error) {
+                console.log("Lỗi" + error);
+            }
         }
+
     }
     let listGender = await myModel.genderModel.find()
     let listStaff = await myModel.managerModel.find(dk).populate('id_gender')
-    res.render('staffs/list', { listStaff: listStaff, listGender: listGender, objU: objU })
+    res.render('staffs/list', { listStaff: listStaff, listGender: listGender, objU: objU,msg:msg })
 }
 exports.editStaff = async (req, res, next) => {
     let msg = ''

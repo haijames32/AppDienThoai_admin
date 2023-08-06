@@ -36,7 +36,7 @@
                     <h2><a class="tt" href="/orders">List Order</a></h2>
                 </div>
 
-                
+
 
             </div>
             <hr>
@@ -63,36 +63,46 @@
                                 <th>Tên khách hàng</th>
                                 <th class="col-4">Ngày mua</th>
                                 <th>Sản phẩm</th>
-                                <th>Trạng thái</th>
                                 <th>Tổng tiền</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <% listOr.forEach( (obj,index)=> { %>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <%= obj.id_khachhang.fullname %>
-                                        </td>
-                                        <td>
-                                            <%= obj.ngaymua %>
-                                        </td>
-                                        <td>
-                                            <img class="img" src="<%= obj.id_sanpham.image %>" alt="">
-                                        </td>
-                                        <td>
-                                            <%= obj.trangthai %>
-                                        </td>
-                                        <td>
-                                            <%= obj.tongtien.toLocaleString() %>₫
-                                        </td>
-                                        <td style="text-align: center; vertical-align: middle">
-                                            <a href="orders/detail/<%= obj._id %>"><i class="fa-sharp fa-solid fa-pen"
-                                                    style="color: black;"></i></a>
-                                        </td>
-                                    </tr>
-                                        <% }); %>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <%= obj.id_khachhang.fullname %>
+                                    </td>
+                                    <td>
+                                        <%= obj.ngaymua %>
+                                    </td>
+                                    <td>
+                                        <img class="img" src="<%= obj.id_sanpham.image %>" alt="">
+                                    </td>
+                                    <td>
+                                        <%= obj.tongtien.toLocaleString() %>₫
+                                    </td>
+                                    <td>
+                                        <% if (obj.trangthai=="Chờ xác nhận" ) { %>
+                                            <form method="post">
+                                                <input hidden name="id" value="<%= obj._id %>" />
+                                                <button class="btn" type="submit"
+                                                    style="background-color: #145DA0; color: white; cursor: pointer;">
+                                                    Xác nhận
+                                                </button>
+                                            </form>
+                                            <% } else { %>
+                                                <%= obj.trangthai %>
+                                                    <% } %>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle">
+                                        <a href="orders/detail/<%= obj._id %>"><i
+                                                class="fa-sharp fa-solid fa-circle-info" style="color: black;"></i></a>
+                                    </td>
+                                </tr>
+                                <% }); %>
                     </table>
                 </div>
             </div>
@@ -100,8 +110,6 @@
 
             <hr>
     </div>
-
-
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

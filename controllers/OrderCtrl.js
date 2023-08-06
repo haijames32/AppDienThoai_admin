@@ -7,14 +7,32 @@ exports.listOrder = async (req, res, next) => {
 
     // Tính tổng tiền
     listOr.forEach(order => {
-        let tong = order.tongtien
         let gia = order.id_sanpham.giasp
         let sl = order.soluong
-        tong = gia * sl;
+        order.tongtien = gia * sl;
         order.save();
     })
 
     res.render('orders/list', { listOr: listOr, objU: objU })
+}
+
+exports.changeStatus = async (req, res, next) => {
+    console.log('>>>', req.body.id);
+    let idOr = req.body.id;
+
+    let objOr = {
+        trangthai: "Chờ thanh toán",
+        _id: idOr
+    };
+
+    try {
+        await myModel.donHangModel.findByIdAndUpdate({ _id: idOr }, objOr);
+    } catch (error) {
+        console.log(error);
+    }
+
+    return res.redirect('/orders')
+
 }
 
 exports.detailOrder = async (req, res, next) => {

@@ -97,6 +97,8 @@ exports.addOrder = async (req, res, next) => {
     try {
         var listSp = await myModel.spModel.find();
         var listU = await myModel.userModel.find();
+        var objProd = await myModel.spModel.findOne({ _id: req.body.id_sanpham })
+        console.log('objProd ', objProd);
     } catch (error) {
         console.log(error.message);
     }
@@ -113,6 +115,8 @@ exports.addOrder = async (req, res, next) => {
 
 
         try {
+            objProd.tonkho -= req.body.soluong;
+            objProd.save()
             let new_or = await newOrder.save();
             console.log(new_or);
             return res.redirect('/products')

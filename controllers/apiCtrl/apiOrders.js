@@ -1,22 +1,41 @@
 const myModel = require('../../models/myModel');
 
 exports.listOrder = async (req, res, next) => {
-    let list = await myModel.donHangModel.find({ id_khachhang: req.params.id_khachhang });
-    res.json(list)
+    // console.log( req.body.id_khachhang);\
+    try {
+        let list = await myModel.donHangModel.find({ id_khachhang: req.params.id }).populate('id_khachhang').populate('id_sanpham')
+        console.log(list);
+        // Tính tổng tiền
+        list.forEach(order => {
+            let gia = order.id_sanpham.giasp
+            let sl = order.soluong
+            order.tongtien = gia * sl;
+            order.save();
+        })
+
+        res.json(list)
+    } catch (error) {
+        console.log('err ', error);
+    }
+
 }
 
 exports.postOrder = async (req, res, next) => {
     if (req.method == 'POST') {
-        const { id_khachhang, id_sanpham, soluong, ngaymua, trangthai, tongtien } = req.body;
-        const newOrder = new myModel.donHangModel({
-            id_khachhang,
-            id_sanpham,
-            soluong,
-            ngaymua,
-            trangthai,
-            tongtien
-        });
+        let objPro = await myModel.spModel.findOne({ _id: req.body.id_sanpham })
+
+
+        let newOrder = new myModel.donHangModel();
+        newOrder.id_khachhang = req.body.id_khachhang;
+        newOrder.id_sanpham = req.body.id_sanpham;
+        newOrder.soluong = req.body.soluong;
+        newOrder.ngaymua = new Date();
+        newOrder.trangthai = "Chờ xác nhận";
+        newOrder.tongtien = 0;
+
         try {
+            objPro.tonkho -= req.body.soluong;
+            objPro.save()
             let obj = await newOrder.save()
             console.log(obj);
             res.status(201).json({ success: true, msg: "Đặt hàng thành công" })
@@ -26,3 +45,4 @@ exports.postOrder = async (req, res, next) => {
         }
     }
 }
+//lấy tất cả sản phẩm
